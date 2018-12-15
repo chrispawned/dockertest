@@ -5,9 +5,9 @@ ansible_user=ubuntu
 localhost
 [testserver]
 [webserver]
-3.16.180.26
-18.224.23.37
+4.blah.blah.29
+19.blah.blah.35
 [apache]
-18.224.23.37
+19.blah.blah.35
 [couchdb]
-3.16.180.26
+4.blah.blah.29
