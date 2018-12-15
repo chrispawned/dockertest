@@ -1,0 +1,65 @@
+---
+  - name: Create EC2 Instance
+    hosts: local
+    connection: local
+    gather_facts: False
+    tags: deploying
+    vars:
+      instance_type: t2.micro
+      security_group: webservergroup
+      instance_name: MSR-test-Instance
+      device_name: /dev/sda1
+      volume_type: gp2
+      volume_size: 8
+      image: ami-0653e888ec96eab9b
+      region: us-east-2
+      key_name: webserverkey
+      subnet_id: []
+      count: 2
+
+    tasks:
+
+      - name: Create security group
+        local_action: 
+          module: ec2_group
+          name: "{{ security_group }}"
+          region: "{{ region }}"
+          description: Webserver Security Group
+          rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 8080
+              to_port: 8080
+              cidr_ip: 0.0.0.0/0
+          rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+
+      - name: Create Key Pair
+        ec2_key:
+          name: "{{ key_name }}"
+          region: "{{ region }}"
+          key_material: "{{ item }}"
+        with_file: /root/.ssh/id_rsa.pub
+
+
+      - name: Create new EC2 instances
+        ec2: 
+          group: "{{ security_group }}"
+          instance_type: "{{ instance_type}}"
+          image: "{{ image }}"
+          wait: true
+          volumes:
+            - device_name: "{{ device_name }}"
+              volume_type: "{{ volume_type }}"
+              volume_size: "{{ volume_size }}" 
+          region: "{{ region }}"
+          key_name: "{{ key_name }}"
+          instance_tags:
+            Name: "{{ instance_name }}-{{ item }}"
+        with_sequence:
+            count={{ count }}
+        register: ec2
