@@ -1,0 +1,13 @@
+[webserver:vars]
+ansible_connection=ssh
+ansible_user=ubuntu
+[local]
+localhost
+[testserver]
+[webserver]
+4.blah.blah.29
+19.blah.blah.35
+[apache]
+19.blah.blah.35
+[couchdb]
+4.blah.blah.29
