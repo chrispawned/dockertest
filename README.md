@@ -12,11 +12,10 @@ Requirements
 On Ansible Host
 
     1. Create a file .boto with following contents under our user home folder (~/.boto):
-'''
 [Credentials]
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_EY=
-'''       
+AWS_ACCESS_KEY_ID=KID...CWU
+AWS_SECRET_ACCESS_EY=3qv...DSP
+       
     2. yum install ansible | apt-get install ansible
     3. apt-get install python3-boto python-boto python3-boto3 python-boto3
     4. ansible-playbook -i hosts playbook.yml
