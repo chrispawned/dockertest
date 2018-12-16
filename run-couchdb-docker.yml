@@ -2,17 +2,5 @@
 - hosts: couchdb
   gather_facts: False
   sudo: yes
-  tasks:
-    - name: install python v2
-      raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal)
-    - name: create directory for couchdb
-      file:
-        path: /home/ubuntu/couchdb
-        state: directory
-        owner: www-data
-        group: www-data
-        mode: 0775
-        recurse: yes
-    - name: run couchdb with docker    
-      shell: |
-       docker run -p 8080:5984 -d -v /home/ubuntu/couchdb/:/usr/local/var/lib/couchdb couchdb:2.1.1
+  roles:
+    - role: run-couchdb-docker

@@ -8,7 +8,7 @@
       instance_type: t2.micro
       security_group: webservergroup
       instance_name: MSR-test-Instance
-      device_name: /dev/sda
+      device_name: /dev/xvda
       volume_type: gp2
       volume_size: 8
       image: ami-0653e888ec96eab9b

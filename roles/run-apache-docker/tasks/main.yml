@@ -1,0 +1,26 @@
+---
+    - name: install python v2
+      raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal)
+    - name: create directory for apache files
+      file:
+        path: "{{ path }}"
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: 0775
+        recurse: yes
+    - name: Copy docker-compose file to remote server
+      copy:
+        src: docker-compose.yml
+        dest: /home/ubuntu/docker-compose.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: 0644
+    - name: get files from github
+      git:
+        repo: "{{ repo }}"
+        version: master
+        dest: "{{ path }}"
+    - name: run apache with docker    
+      shell: |
+       cd "{{ path }}"/.. && docker-compose up -d

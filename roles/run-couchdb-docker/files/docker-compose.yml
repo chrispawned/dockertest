@@ -1,0 +1,11 @@
+version: '3'
+services:
+    couchdb:
+        image: couchdb:2.1.1
+        container_name: couchdb
+        ports:
+            - 8080:5984
+        volumes:
+            - couchdb:/usr/local/var/lib/couchdb/
+volumes:
+    couchdb:
