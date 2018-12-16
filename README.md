@@ -12,9 +12,9 @@ On Ansible Host
 
 1. For Ansible to connect to our AWS account we need an IAM user. Create an IAM user and keep note of the access credentials. Create a file .boto with the above credentials under our user home folder (~/.boto):
 
-[Credentials]
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_EY=
+[Credentials]   
+AWS_ACCESS_KEY_ID=  
+AWS_SECRET_ACCESS_EY=  
 
 2. Install ansible using the following command
 
