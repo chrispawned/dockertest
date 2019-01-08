@@ -1,0 +1,7 @@
+apache:
+        image: httpd:2.4
+        container_name: apache
+        ports:
+            - 8080:80
+        volumes:
+            - /home/ubuntu/www/:/usr/local/apache2/htdocs/

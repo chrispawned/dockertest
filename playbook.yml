@@ -16,6 +16,7 @@
       key_name: webserverkey
       subnet_id: []
       count: 2
+      count2: count - 1
 
     tasks:
 
@@ -63,3 +64,13 @@
         with_sequence:
             count={{ count }}
         register: ec2
+      - debug:
+          var: ec2.results[0].instances[0].public_ip
+      - debug:
+          var: ec2.results[1].instances[0].public_ip
+      - name: Add the newly created EC2 instance(s) to the local host group
+        add_host:
+          name: "{{ item[item.0].instances[0].public_ip }}"
+          groups: webserver 
+        with_indexed_items: "{{ ec2.results }}"
+

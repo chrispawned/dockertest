@@ -1,0 +1,9 @@
+---
+- hosts: jenkins
+  gather_facts: False
+  sudo: yes
+  vars:
+      path: /home/ubuntu/www
+      repo: https://github.com/heroku/node-js-sample.git
+  roles:
+    - role: run-jenkins-docker
